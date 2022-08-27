@@ -1,6 +1,6 @@
-import type { GlobalConfig } from 'emmet';
-import { EditorState, Extension, Facet } from '@codemirror/state';
-import { resetCache } from './emmet';
+import type { GlobalConfig } from "emmet";
+import { EditorState, Extension, Facet } from "@codemirror/state";
+import { resetCache } from "./emmet";
 
 export interface EmmetEditorOptions {
     emmet: EmmetConfig;
@@ -46,10 +46,10 @@ export interface EmmetConfig {
     autoRenameTags: boolean;
 
     /** Quotes to use in generated HTML attribute values */
-    attributeQuotes: 'single' | 'double';
+    attributeQuotes: "single" | "double";
 
     /** Style for self-closing elements (like `<br>`) and boolean attributes */
-    markupStyle: 'html' | 'xhtml' | 'xml',
+    markupStyle: "html" | "xhtml" | "xml";
 
     /**
      * Enable automatic tag commenting. When enabled, elements generated from Emmet
@@ -97,17 +97,17 @@ export interface EmmetConfig {
 
 export const defaultConfig: EmmetConfig = {
     mark: true,
-    preview: { },
+    preview: {},
     previewEnabled: true,
     autoRenameTags: true,
     markTagPairs: true,
     previewOpenTag: false,
-    attributeQuotes: 'double',
-    markupStyle: 'html',
+    attributeQuotes: "double",
+    markupStyle: "html",
     comments: false,
-    commentsTemplate: '<!-- /[#ID][.CLASS] -->',
+    commentsTemplate: "<!-- /[#ID][.CLASS] -->",
     bem: false,
-    completionBoost: 99
+    completionBoost: 99,
 };
 
 export const config = Facet.define<Partial<EmmetConfig>, EmmetConfig>({
@@ -120,16 +120,19 @@ export const config = Facet.define<Partial<EmmetConfig>, EmmetConfig>({
             if (item.preview) {
                 baseConfig.preview = {
                     ...preview,
-                    ...item.preview
+                    ...item.preview,
                 };
             }
         }
 
         return baseConfig;
-    }
+    },
 });
 
-export default function getEmmetConfig(state: EditorState, opt?: Partial<EmmetConfig>): EmmetConfig {
+export default function getEmmetConfig(
+    state: EditorState,
+    opt?: Partial<EmmetConfig>
+): EmmetConfig {
     let conf = state.facet(config);
     if (opt) {
         conf = { ...conf, ...opt };
